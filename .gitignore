@@ -7,3 +7,5 @@ log/
 *.log
 *~
 .vscode/
+.cache
+compile_commands.json
