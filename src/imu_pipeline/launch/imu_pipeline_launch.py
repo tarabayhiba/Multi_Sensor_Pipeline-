@@ -1,9 +1,8 @@
 import os
-
 from ament_index_python.packages import get_package_share_directory
 from launch import LaunchDescription
-from launch_ros.actions import Node
 from launch.actions import SetEnvironmentVariable
+from launch_ros.actions import Node
 
 def generate_launch_description():
     pkg_share = get_package_share_directory('imu_pipeline')
@@ -39,11 +38,13 @@ def generate_launch_description():
         output='screen',
     )
 
-    SetEnvironmentVariable(
-            name='RCUTILS_CONSOLE_OUTPUT_FORMAT',
-            value='[{severity} {date_time_with_ms}] [{name}]: {message}'),
+    set_env = SetEnvironmentVariable(
+        name='RCUTILS_CONSOLE_OUTPUT_FORMAT',
+        value='[{severity} {date_time_with_ms}] [{name}]: {message}'
+    )
 
     return LaunchDescription([
+        set_env,
         sensor_driver_node,
         filter_node,
         logger_node,
